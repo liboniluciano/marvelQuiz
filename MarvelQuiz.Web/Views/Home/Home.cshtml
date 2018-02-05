@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Quiz";
+}
+
+<div id="divPrincipalPersonagem">
+
+</div>
+<div id="divBotoes">
+    <label id="lblPontuacao">Pontuação: <span id="spnPontuacao">0</span></label>
+    <button id="btnConfirmar">Confirmar</button>
+    <button id="btnPular">Pular</button><label id="lblPulos">Pulos Disponíveis: <span id="spnPulos">3</span></label>
+    <button id="btnSair">Sair</button>
+</div>
+
+<audio id="audioError" src="~/Content/Audio/errou.mp3" type="audio/mpeg"></audio>
+
+<script>
+    
+    var pontuacao = 0,
+        pulos = 3;
+
+    var urlPersonagem = {
+        home: "@Url.Action("Home","Home")",
+        get: '@Url.Action("Get", "Personagem")',
+        login: '@Url.Action("Login","Login")',
+        postUsuario: '@Url.Action("Post","Usuario")',
+        getRanking: '@Url.Action("Get","Usuario")',
+        verificaQuestao: '@Url.Action("VerificaResposta","Personagem")'
+    }
+
+    var iniciaJogo = function fnc() {
+        $.get(urlPersonagem.home).success(function (data) {
+            $('#divPrincipal').html(data);
+        }).error(setError);
+
+        return fnc;
+    }
+
+    var buscaProximoPersonagem = (function fnc() {
+        $.get(urlPersonagem.get).success(function (data) {
+            $("#divPrincipalPersonagem").html(data);
+        }).error(setError);
+
+        return fnc;
+    })();
+
+    var inserePontuacao = (function fnc() {
+        $.post(urlPersonagem.postUsuario, {
+            nomeUsuario: localStorage.getItem("tbPessoa"),
+            pontuacao: pontuacao
+        }).success(function () {
+            alert("Pontuação cadastrada!");
+            exibeTopRanking();
+            return false;
+        }).error(setError);
+    });
+
+
+    var exibeTopRanking = (function fnc() {
+        $.get(urlPersonagem.getRanking).success(function (data) {
+            $('#divPrincipal').html(data);
+        }).error(setError);
+        return fnc;
+    });
+
+    $("#btnConfirmar").click(function () {
+        var idPersonagemResposta = $("input:radio[name=radioPersonagem]:checked").val();
+
+        $.get(urlPersonagem.verificaQuestao, {
+            idPersonagem: idPersonagemResposta
+        }).success(function (resposta) {
+
+            if (resposta == "1") {
+                alert("ta certo");
+                pontuacao += 100;
+                $('#spnPontuacao').html(pontuacao);
+                buscaProximoPersonagem();
+
+                if (pontuacao == 1000) {
+                    alert("Você ganhou o jogo!");
+                    inserePontuacao();
+                    exibeTopRanking();
+                }
+
+            } else {
+                $("#audioError").trigger("play");
+                alert("ta errado - GAME OVER");
+                if (pontuacao == 0) {
+                    iniciaJogo();
+                    return false;
+                } else {
+                    inserePontuacao();
+                }
+            }
+        }).error(setError);
+    });
+
+    $("#btnPular").click(function () {
+
+        if (pulos <= 0) {
+            $("#btnPular").attr("disabled", true);
+            alert("Você não tem mais pulos disponíveis!");
+            return false;
+        }
+
+        pulos -= 1;
+        buscaProximoPersonagem();
+        $("#spnPulos").html(pulos);
+    });
+
+    $("#btnSair").click(function () {
+        localStorage.setItem("tbPessoa", "");
+
+        $.get(url.login).success(function (data) {
+            $('#divPrincipal').html(data);
+        }).error(setError);
+    });
+
+    function setError(xhr) {
+        alert("erro " + xhr.responseText);
+    }
+
+</script>

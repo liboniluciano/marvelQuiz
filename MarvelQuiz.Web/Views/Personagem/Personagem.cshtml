@@ -1,0 +1,23 @@
+﻿@model IEnumerable<MarvelQuiz.Web.ViewModel.PersonagemViewModel>
+@{
+    Layout = null;
+    var personPrincipal = Model.First(x => x.Principal);
+}
+
+<fieldset class="form-group" id="fsPersonagem">
+    <legend>Quiz</legend>
+    <div id="divPersonagem">
+        <figure>
+            <img id="imgPersonagem" src="@personPrincipal.Url" alt="Imagem do Personagem"/>
+        </figure>
+    </div>
+    <div id="divQuestoes">
+        <ol type="a">
+            @foreach (var item in Model)
+            {
+                <li><input type="radio" name="radioPersonagem" value="@item.Id"/> <label>@item.Nome</label></li>
+            }
+        </ol>
+        <br/>
+    </div>
+</fieldset>

@@ -1,0 +1,22 @@
+﻿
+<div id="divFormulario">
+
+    <h1 id="title">Digite seu nome</h1>
+    <input type="text" id="txtNome" />
+    <button id="btnEnviar">Iniciar</button>
+</div>
+
+<script>
+    var url = "@Url.Action("Home","Home")";
+
+    $("#btnEnviar").click(function () {
+        localStorage.setItem("tbPessoa", $("#txtNome").val());
+
+        $.get(url).success(function (data) {
+            $('#divPrincipal').html(data);
+        }).error(function (xhr) {
+            alert("erro " + xhr.responseText);
+        });
+    });
+
+</script>

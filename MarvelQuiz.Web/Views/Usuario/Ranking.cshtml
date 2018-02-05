@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MarvelQuiz.Web.ViewModel.UsuarioViewModel>
+
+<div>
+    <fieldset>
+        <legend>Os 10 melhores pontuadores</legend>
+        <ol type="1">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <li><label id="lblNome">Nome: @item.Nome</label> <label id="lblPontuacao">Pontuação: @item.Pontuacao</label></li>
+                }
+            }
+            else
+            {
+                <li>Não foi encontrado nenhum registro.</li>
+            }
+        </ol>
+        <button id="btnNovoJogo">Novo Jogo</button>
+    </fieldset>
+</div>
+
+<script>
+    var url = '@Url.Action("Login","Login")';
+
+    $("#btnNovoJogo").click(function () {
+        $.get(url).success(function (data) {
+            $('#divPrincipal').html(data);
+        }).error(function (xhr) {
+            alert("Erro: " + xhr);
+        });
+
+    });
+
+</script>
+

@@ -1,0 +1,7 @@
+C:\Users\Luciano\documents\visual studio 2015\Projects\MarvelQuiz\MarvelQuiz.Repository\bin\Debug\MarvelQuiz.Repository.dll
+C:\Users\Luciano\documents\visual studio 2015\Projects\MarvelQuiz\MarvelQuiz.Repository\bin\Debug\MarvelQuiz.Repository.pdb
+C:\Users\Luciano\documents\visual studio 2015\Projects\MarvelQuiz\MarvelQuiz.Repository\obj\Debug\MarvelQuiz.Repository.csprojResolveAssemblyReference.cache
+C:\Users\Luciano\documents\visual studio 2015\Projects\MarvelQuiz\MarvelQuiz.Repository\obj\Debug\MarvelQuiz.Repository.dll
+C:\Users\Luciano\documents\visual studio 2015\Projects\MarvelQuiz\MarvelQuiz.Repository\obj\Debug\MarvelQuiz.Repository.pdb
+C:\Users\Luciano\documents\visual studio 2015\Projects\MarvelQuiz\MarvelQuiz.Repository\bin\Debug\MarvelQuiz.Domain.dll
+C:\Users\Luciano\documents\visual studio 2015\Projects\MarvelQuiz\MarvelQuiz.Repository\bin\Debug\MarvelQuiz.Domain.pdb
